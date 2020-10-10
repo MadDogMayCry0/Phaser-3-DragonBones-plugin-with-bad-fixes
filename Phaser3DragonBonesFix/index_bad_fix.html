@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+    <script src="https://cdn.jsdelivr.net/npm/phaser@3.24.1/dist/phaser.min.js"></script> 
+	<!-- <script src="dragonBones_original.js"></script> -->
+	
+	<!-- /////////////////////////// NEXT SCENE ANIMATION BAD FIX -->
+	<!-- /////////////////////////// NEXT SCENE ANIMATION BAD FIX -->
+	<!-- /////////////////////////// NEXT SCENE ANIMATION BAD FIX -->
+	<!-- https://github.com/DragonBones/DragonBonesJS/issues/140#issuecomment-687344050 -->
+	<script src="dragonBones_bad_fix.js"></script>
+	
+</head>
+<style>
+body {
+	color:#fff;background-color:#000;overflow:hidden;margin:0px;padding:0px;
+}
+</style>
+<script>
+
+/////////////////////////////////////
+/////////////////////////////////////
+/////////////////////////////////////
+/////////////////////////////////////
+
+var SceneMain = new Phaser.Scene('SceneMain');
+SceneMain.preload = function(){   
+	//////////////////////////// DISAPPEARANCE BAD FIX
+    //////////////////////////// DISAPPEARANCE BAD FIX
+    //////////////////////////// DISAPPEARANCE BAD FIX
+	this.load.dragonbone("mecha", "mecha_tex.png", "mecha_tex.json","mecha_ske.json");
+}
+
+SceneMain.create = function(){ 
+	this.player = this.add.armature("mecha_1002_101d", 'mecha');
+	this.player.setPosition(game.config.width/2, game.config.height/2);
+	this.player.animation.play("idle");		
+	this.input.on('pointerup', function (pointer) {
+		this.scene.start('SceneMain2');		
+	}, this);
+}
+
+/////////////////////////////////////
+/////////////////////////////////////
+/////////////////////////////////////
+/////////////////////////////////////
+
+var SceneMain2 = new Phaser.Scene('SceneMain2');
+SceneMain2.preload = function(){   
+    //////////////////////////// DISAPPEARANCE BAD FIX
+    //////////////////////////// DISAPPEARANCE BAD FIX
+    //////////////////////////// DISAPPEARANCE BAD FIX
+	this.load.dragonbone("mecha______________", "mecha_tex.png", "mecha_tex.json","mecha_ske.json");
+}
+
+SceneMain2.create = function(){ 
+	this.player = this.add.armature("mecha_1002_101d", 'mecha______________');
+	this.player.setPosition(game.config.width/2, game.config.height/2);
+	this.player.animation.play("idle");
+	this.input.on('pointerup', function (pointer) {
+		this.scene.start('SceneMain');
+	}, this);
+}
+
+////////////////////////////////////
+////////////////////////////////////
+////////////////////////////////////
+////////////////////////////////////
+
+const config = {
+	type: Phaser.WEBGL,
+	scale: {
+		mode: Phaser.Scale.FIT,
+		autoCenter: Phaser.Scale.CENTER_BOTH,
+		width: 1920,
+		height: 1080
+	},
+	audio: {
+		noAudio: true
+	},
+	plugins: {
+		scene: [
+			{ key: "DragonBones", plugin: dragonBones.phaser.plugin.DragonBonesScenePlugin, mapping: "dragonbone" }
+		]
+	},
+	scene: [ SceneMain,SceneMain2 ]
+};
+
+var game = new Phaser.Game(config);
+</script>
